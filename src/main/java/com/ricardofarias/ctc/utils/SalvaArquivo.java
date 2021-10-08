@@ -19,10 +19,11 @@ public class SalvaArquivo {
              BufferedWriter bw = new BufferedWriter(fw)) {
 
             Set<Map.Entry<String, Integer>> set = mapFrase.entrySet();
-            Iterator iterator = set.iterator();
+            Iterator<Map.Entry<String, Integer>> iterator = set.iterator();
 
-            while (iterator.hasNext() &&  numeroDeLinhas <= 50000) {
-                Map.Entry frase = (Map.Entry) iterator.next();
+            while (iterator.hasNext()) {
+                numeroDeLinhas++;
+                var frase = (Map.Entry) iterator.next();
                 bw.write(frase.getKey() + "|" + frase.getValue());
                 bw.write(System.lineSeparator());
             }

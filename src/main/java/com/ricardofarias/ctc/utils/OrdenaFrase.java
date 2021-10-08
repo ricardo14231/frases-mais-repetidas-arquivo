@@ -12,7 +12,6 @@ public class OrdenaFrase {
         resultado.putAll(map);
         return resultado;
     }
-
 }
 
 class ComparatorFrase implements Comparator<Object> {
@@ -21,9 +20,11 @@ class ComparatorFrase implements Comparator<Object> {
         this.map = map;
     }
     public int compare(Object o1, Object o2) {
-        if (map.get(o1) == map.get(o2))
+        if (map.get(o1) < map.get(o2))
             return 1;
+        if (map.get(o1) == map.get(o2))
+            return 0;
         else
-            return (map.get(o2)).compareTo(map.get(o1));
+            return -1;
     }
 }
