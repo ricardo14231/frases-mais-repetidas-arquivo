@@ -11,7 +11,9 @@ public class LerArquivo {
     private static Map<String, Integer> mapFraseAtual = new HashMap<>();
     private static Map<String, Integer> mapFraseFinal = new HashMap<>();
 
-    private static final String PATHBASEDADOS = "arquivoOrigem.txt";
+     private static final String PATHBASEDADOS = "basedados-frases.txt";
+     //private static final String PATHBASEDADOS = "tt.txt";
+     //private static final String PATHBASEDADOS = "arquivoOrigem.txt";
 
     public static void lerArquivoBaseDeDados() {
 
@@ -29,7 +31,7 @@ public class LerArquivo {
             br.skip(indexLinhaNoArquivo);
 
             while ((linha = br.readLine()) != null) {
-                //TODO soma 2 pois é os caractere /n de fim de linha.
+
                 linhasLidas++;
 
                 if(!linha.isBlank() && !linha.isEmpty()) {
@@ -39,8 +41,8 @@ public class LerArquivo {
                         mapAux.put(frase, mapAux.getOrDefault(frase, 0) + 1);
                     }
                 }
-                //TODO colocar 2000
-                if(linhasLidas >= 5000) {
+                //Após ler 1500 linhas, equivalente
+                if(linhasLidas >= 1500) {
                     linhasLidasForMaior1000 = true;
                     SalvaAsPrimeiras50kFrases();
                 }
@@ -53,14 +55,19 @@ public class LerArquivo {
             SalvaAsPrimeiras50kFrases();
         }
 
-        SalvaArquivo.salvaArquivoFinal(OrdenaFrase.ordenaPorQuantidadeFrase(mapFraseFinal));
+        SalvaArquivo.salvaArquivoFinal(mapFraseFinal);
     }
 
     private static void SalvaAsPrimeiras50kFrases(){
 
         mapAux.forEach((key, value) -> mapFraseAtual.merge(key, value, Integer::sum));
         mapAux.clear();
-        mapFraseFinal = mapFraseAtual;
+
+        mapFraseFinal = OrdenaFrase.ordenaPorQuantidadeFrase(mapFraseAtual);
+        mapFraseAtual.clear();
+
+        mapFraseAtual = mapFraseFinal;
+
     }
 
     private static String[] retornaArrayFrase(String linha) {

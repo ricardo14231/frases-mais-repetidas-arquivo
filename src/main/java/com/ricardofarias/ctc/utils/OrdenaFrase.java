@@ -1,30 +1,30 @@
 package com.ricardofarias.ctc.utils;
 
+import java.security.KeyStore;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class OrdenaFrase {
 
     public static Map<String, Integer> ordenaPorQuantidadeFrase(Map<String, Integer> map) {
-        ComparatorFrase comparator = new ComparatorFrase(map);
-        Map<String, Integer> resultado = new TreeMap<>(comparator);
-        resultado.putAll(map);
-        return resultado;
-    }
-}
 
-class ComparatorFrase implements Comparator<Object> {
-    Map<String, Integer> map;
-    public ComparatorFrase(Map<String, Integer> map) {
-        this.map = map;
-    }
-    public int compare(Object o1, Object o2) {
-        if (map.get(o1) < map.get(o2))
-            return 1;
-        if (map.get(o1) == map.get(o2))
-            return 0;
-        else
-            return -1;
+        List<Entry<String, Integer>> list = new LinkedList<>(map.entrySet());
+
+        Collections.sort(list, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+
+        return list.stream()
+                .limit(50000)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
     }
 }
