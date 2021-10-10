@@ -1,29 +1,35 @@
 package com.ricardofarias.ctc.utils;
 
+import com.ricardofarias.ctc.exceptions.ArquivoNaoEncontradoException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/*
+        O algoritmo itera nas 80 mil frases iniciais e depois ordena as primeiras 50 mil palavras.
+        Depois de ordenar, cópia para o map que está iterando sobre o arquivo.
+        É armazenado a quantidade de caracteres que foram lidos no arquivo
+        para voltar no mesmo ponto durantes as iterações.
+ */
+
 public class LerArquivo {
-    private static Map<String, Integer> mapAux = new HashMap<>();
-    private static Map<String, Integer> mapFraseAtual = new HashMap<>();
-    private static Map<String, Integer> mapFraseFinal = new HashMap<>();
+    private static Map<String, Integer> mapFrasesAtual = new HashMap<>();
+    private static Map<String, Integer> mapFrasesFinal = new HashMap<>();
 
-     private static final String PATHBASEDADOS = "basedados-frases.txt";
-     //private static final String PATHBASEDADOS = "tt.txt";
-     //private static final String PATHBASEDADOS = "arquivoOrigem.txt";
+    public static void lerArquivoBaseDeDados(final String PATHBASEDADOS) throws ArquivoNaoEncontradoException {
 
-    public static void lerArquivoBaseDeDados() {
-
-        long linhasLidas = 0;
         String[] frasesPorLinha;
         String linha;
         long indexLinhaNoArquivo = 0;
-        boolean linhasLidasForMaior1000 = false;
+        boolean isMapSizeMenor50000 = true;
 
         File file = new File(PATHBASEDADOS);
+
+        if(!file.exists())
+            throw new ArquivoNaoEncontradoException(PATHBASEDADOS);
 
         try (FileReader fr = new FileReader(file);
              BufferedReader br = new BufferedReader (fr, 1024)) {
@@ -32,18 +38,16 @@ public class LerArquivo {
 
             while ((linha = br.readLine()) != null) {
 
-                linhasLidas++;
-
                 if(!linha.isBlank() && !linha.isEmpty()) {
                     frasesPorLinha = retornaArrayFrase(linha);
 
                     for (String frase : frasesPorLinha) {
-                        mapAux.put(frase, mapAux.getOrDefault(frase, 0) + 1);
+                        mapFrasesAtual.put(frase, mapFrasesAtual.getOrDefault(frase, 0) + 1);
                     }
                 }
-                //Após ler 1500 linhas, equivalente
-                if(linhasLidas >= 1500) {
-                    linhasLidasForMaior1000 = true;
+                //Após ler 80000 frases chama o método para ordernar as 50 mil frases mais repetidas.
+                if(mapFrasesAtual.size() >= 80000) {
+                    isMapSizeMenor50000 = false;
                     SalvaAsPrimeiras50kFrases();
                 }
             }
@@ -51,22 +55,20 @@ public class LerArquivo {
             e.printStackTrace();
         }
 
-        if(!linhasLidasForMaior1000){
+        if(isMapSizeMenor50000){
             SalvaAsPrimeiras50kFrases();
         }
 
-        SalvaArquivo.salvaArquivoFinal(mapFraseFinal);
+        SalvaArquivo.salvaArquivoFinal(mapFrasesFinal);
     }
 
     private static void SalvaAsPrimeiras50kFrases(){
 
-        mapAux.forEach((key, value) -> mapFraseAtual.merge(key, value, Integer::sum));
-        mapAux.clear();
+        mapFrasesFinal = OrdenaFrase.ordenaPorQuantidadeFrase(mapFrasesAtual);
+        mapFrasesAtual.clear();
 
-        mapFraseFinal = OrdenaFrase.ordenaPorQuantidadeFrase(mapFraseAtual);
-        mapFraseAtual.clear();
-
-        mapFraseAtual = mapFraseFinal;
+        //Faz uma cópis das 50k para iterar com o restante das frases do arquivo.
+        mapFrasesAtual.putAll(mapFrasesFinal);
 
     }
 

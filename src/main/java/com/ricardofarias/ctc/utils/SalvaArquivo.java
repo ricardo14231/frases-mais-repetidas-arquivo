@@ -11,7 +11,7 @@ import java.util.Set;
 public class SalvaArquivo {
 
     public static void salvaArquivoFinal(Map<String, Integer> mapFrase) {
-        final String PATHARQUIVOFINAL = "arquivo-final.txt";
+        final String PATHARQUIVOFINAL = "resultado-frases.txt";
         int numeroDeLinhas = 0;
         File file = new File(PATHARQUIVOFINAL);
 
@@ -24,7 +24,7 @@ public class SalvaArquivo {
             while (iterator.hasNext()) {
                 numeroDeLinhas++;
                 var frase = (Map.Entry) iterator.next();
-                bw.write(frase.getKey() + "|" + frase.getValue());
+                bw.write(frase.getKey() + " | " + frase.getValue());
                 bw.write(System.lineSeparator());
             }
 

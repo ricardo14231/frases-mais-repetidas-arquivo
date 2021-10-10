@@ -24,7 +24,7 @@ public class OrdenaFrase {
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+                        (v1, v2) -> v1, LinkedHashMap::new));
 
     }
 }
