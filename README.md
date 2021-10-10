@@ -25,7 +25,8 @@ execute a classe "FrasesMaisFrequentesMain" do pacote com.ricardofarias.ctc.main
 
 Coloque na raiz do projeto o arquivo de entrada. O nome do arquivo deve ser:  `basedados-frases.txt`      
 Caso queira informar um novo nome, informe o nome no paramêntro do método "LerArquivo.lerArquivoBaseDeDados da classe main.      
-No final do processamento será gerado um novo arquivo com o nome `resultado-frases.txt` na raiz do projeto.   
+No final do processamento será gerado um novo arquivo com o nome `resultado-frases.txt` na raiz do projeto.  
+`Rode o projeto em uma IDE ou Mova o arquivo frasesMaisRepetidas-1.0-SNAPSHOT.jar para raiz do projeto (local do arquivo basedados-frases.txt) e o execute.`   
 **O tempo de processamento varia conforme o tamanho do arquivo de entrada.**
 ## Autor:
 
