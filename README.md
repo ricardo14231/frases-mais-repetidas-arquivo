@@ -23,9 +23,9 @@ execute a classe "FrasesMaisFrequentesMain" do pacote com.ricardofarias.ctc.main
 
 ## Nome arquivo de entrada.
 
-Coloque na raiz do projeto o arquivo de entrada. O nome do arquivo deve ser:  `basedados-freases.txt`   
-Caso queira informar um novo nome, informe o nome no paramêntro do método "LerArquivo.lerArquivoBaseDeDados da classe main.   
-No final do processamento será gerado um novo arquivo com o nome `resultado-frases.txt` na raiz do projeto.
+Coloque na raiz do projeto o arquivo de entrada. O nome do arquivo deve ser:  `basedados-frases.txt`      
+Caso queira informar um novo nome, informe o nome no paramêntro do método "LerArquivo.lerArquivoBaseDeDados da classe main.      
+No final do processamento será gerado um novo arquivo com o nome `resultado-frases.txt` na raiz do projeto.   
 **O tempo de processamento varia conforme o tamanho do arquivo de entrada.**
 ## Autor:
 
