@@ -9,7 +9,7 @@ public class FrasesMaisFrequentesMain {
 
         try {
 
-            LerArquivo.lerArquivoBaseDeDados("arquivoOrigem.txt");
+            LerArquivo.lerArquivoBaseDeDados("basedados-frases-para-testes.txt");
 
         }catch (ArquivoNaoEncontradoException err) {
             System.out.println(err.getMessage());

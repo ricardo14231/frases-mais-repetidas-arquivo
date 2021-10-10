@@ -13,7 +13,7 @@ import java.util.List;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class LerArquivoTest {
 
-    private final String PATH_BASE_DE_DADOS = "arquivoOrigem.txt";
+    private final String PATH_BASE_DE_DADOS = "basedados-frases-para-testes.txt";
     private final String PATH_RESULTADO = "resultado-frases.txt";
 
     @BeforeAll
