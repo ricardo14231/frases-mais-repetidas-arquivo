@@ -24,7 +24,6 @@ public class LerArquivo {
         String[] frasesPorLinha;
         String linha;
         long indexLinhaNoArquivo = 0;
-        boolean isMapSizeMenor50000 = true;
 
         File file = new File(PATHBASEDADOS);
 
@@ -47,7 +46,6 @@ public class LerArquivo {
                 }
                 //Após ler 80000 frases chama o método para ordernar as 50 mil frases mais repetidas.
                 if(mapFrasesAtual.size() >= 80000) {
-                    isMapSizeMenor50000 = false;
                     SalvaAsPrimeiras50kFrases();
                 }
             }
@@ -55,9 +53,9 @@ public class LerArquivo {
             e.printStackTrace();
         }
 
-        if(isMapSizeMenor50000){
-            SalvaAsPrimeiras50kFrases();
-        }
+        //Ordena a ultma parte do Map ou caso o arquivo tenha menos que 80k de frases.
+        SalvaAsPrimeiras50kFrases();
+
 
         SalvaArquivo.salvaArquivoFinal(mapFrasesFinal);
     }
